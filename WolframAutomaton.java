@@ -183,8 +183,9 @@ public class WolframAutomaton extends JPanel {
 	 * @return the value of the cell's parents
 	 */
 	private int getParentCellsValue(int row, int col) {
-		if(row == 0)
+		if(row == 0) {
 			row = height;
+		}
 		int val = 1;
 		//Wrap edges back around
 		if ((col == (width - 1) && board[row - 1][0])
@@ -206,11 +207,12 @@ public class WolframAutomaton extends JPanel {
 		//1. Start with a random set of seeds.
 		//2. Loop endlessly through the board, restarting at the top.
 		//Currently, only check for the first.
- 		if (args.length == 1 && args[0].equals("--random-start"))
+ 		if (args.length == 1 && args[0].equals("--random-start")) {
 			theAutomaton = new WolframAutomaton(true);
-		else
+		} else {
 			theAutomaton = new WolframAutomaton(false);
-
+		}
+		
 		JFrame theFrame =
 			new JFrame("Wolfram Celluar Automaton");
 
