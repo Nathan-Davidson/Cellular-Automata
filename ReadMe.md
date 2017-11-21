@@ -5,6 +5,7 @@ Automata.
 ## Programs
 WolframAutomaton.java -- simulates one of Steven Wolfram's automata rules with
 a graphical interface, showing each iteration sequentially.
+
 GameOfLife.java -- allows users to run simulations of Conway's Game of Life.
 
 ## To Do
