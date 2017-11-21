@@ -93,8 +93,7 @@ public class WolframAutomaton extends JPanel {
 																		int min,
 																		int max,
 																		int def) {
-		String inputString =
-			JOptionPane.showInputDialog(null, "Enter " + msg);
+		String inputString = JOptionPane.showInputDialog(null, "Enter " + msg);
 		try {
 			int input = Integer.parseInt(inputString);
 			if (input >= min && input <= max) {
@@ -131,6 +130,7 @@ public class WolframAutomaton extends JPanel {
 	 */
 	@Override
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		for (int row = 0; row < height; row++)
 			for (int col = 0; col < width; col++) {
 				if (board[row][col]) {
