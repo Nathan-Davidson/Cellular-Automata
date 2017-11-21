@@ -1,12 +1,13 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.Graphics;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class GameOfLife extends JPanel {
-  private static int DEFAULT_BUTTON_SIZE = 20;
+  private static int CELL_SIZE = 15;
 
   private int height;
   private int width;
@@ -20,41 +21,19 @@ public class GameOfLife extends JPanel {
     this.height = height;
     this.width = width;
     this.setLayout(null);
-    this.setPreferredSize(new Dimension(width * DEFAULT_BUTTON_SIZE,
-                                        height * DEFAULT_BUTTON_SIZE));
+    this.setPreferredSize(new Dimension(width * CELL_SIZE,
+                                        height * CELL_SIZE));
     this.theBoard = new GameOfLifeBoard(height, width);
-    this.theCells = initCells(height, width, this.theBoard);
+    this.addMouseListener(new GameOfLifeListener(theBoard));
     this.sleepTime = 0;
     this.running = true;
     this.paused = true;
   }
 
-  public JButton[][] initCells(int height,
-                               int width,
-                               GameOfLifeBoard theBoard) {
-    JButton[][] theCells = new JButton[height][width];
-    for (int row = 0; row < height; row++) {
-      for (int col = 0; col < width; col++) {
-        theCells[row][col] = new JButton();
-        GameOfLifeListener listener = new GameOfLifeListener(theBoard,
-                                                             row,
-                                                             col);
-        theCells[row][col].addActionListener(listener);
-        theCells[row][col].setBounds(col * DEFAULT_BUTTON_SIZE,
-                                     row * DEFAULT_BUTTON_SIZE,
-                                     DEFAULT_BUTTON_SIZE,
-                                     DEFAULT_BUTTON_SIZE);
-        theCells[row][col].setBackground(Color.WHITE);
-        this.add(theCells[row][col]);
-      }
-    }
-
-    return theCells;
-  }
-
   public void run() {
     while (running) {
-      while(paused); //Busywaiting is fun!
+      while(paused) System.out.println("PAUSED"); //Busywaiting is fun!
+      System.out.println("CONWAY");
       tick();
       wait(sleepTime);
     }
@@ -62,15 +41,7 @@ public class GameOfLife extends JPanel {
 
   public void tick() {
     theBoard.tick();
-    updateCells();
-  }
-
-  public void updateCells() {
-    for (int row = 0; row < height; row++) {
-      for (int col = 0; col < width; col++) {
-        updateCell(row, col);
-      }
-    }
+    repaint();
   }
 
   public void wait(int sleepTime) {
@@ -81,16 +52,24 @@ public class GameOfLife extends JPanel {
     }
   }
 
-  public void updateCell(int row, int col) {
-    if (theBoard.getCell(row, col)) {
-      theCells[row][col].setBackground(Color.BLACK);
-    } else {
-      theCells[row][col].setBackground(Color.WHITE);
-    }
-  }
+  @Override
+  public void paintComponent(Graphics g) {
+		for (int row = 0; row < height; row++)
+			for (int col = 0; col < width; col++) {
+				if (theBoard.isLive(row, col)) {
+					g.setColor(Color.BLACK);
+				} else {
+					g.setColor(this.getBackground());
+				}
+				g.fillRect(col * CELL_SIZE,
+                   row * CELL_SIZE,
+                   CELL_SIZE,
+                   CELL_SIZE);
+			}
+	}
 
   public int getWidthPixels() {
-    return width * DEFAULT_BUTTON_SIZE;
+    return width * CELL_SIZE;
   }
 
   public boolean paused() {
@@ -115,23 +94,26 @@ public class GameOfLife extends JPanel {
 
   public void reset() {
     theBoard.reset();
-    updateCells();
+    repaint();
   }
 
-  public class GameOfLifeListener implements ActionListener {
+  public class GameOfLifeListener implements MouseListener {
     private GameOfLifeBoard theBoard;
-    private int cellRow;
-    private int cellCol;
 
-    public GameOfLifeListener(GameOfLifeBoard theBoard, int row, int col) {
+    public GameOfLifeListener(GameOfLifeBoard theBoard) {
       this.theBoard = theBoard;
-      this.cellRow = row;
-      this.cellCol = col;
     }
 
-    public void actionPerformed(ActionEvent e) {
-			theBoard.flipCell(cellRow, cellCol);
-      updateCell(cellRow, cellCol);
-		}
+    public void mouseClicked(MouseEvent e) {
+      int row = e.getY() / CELL_SIZE;
+      int col = e.getX() / CELL_SIZE;
+      theBoard.flipCell(row, col);
+      repaint();
+    }
+
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {}
   }
 }

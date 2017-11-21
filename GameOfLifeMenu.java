@@ -20,6 +20,9 @@ public class GameOfLifeMenu extends JMenuBar {
     JButton resetButton = new JButton("Reset");
     resetButton.addActionListener(new ResetListener(theGame));
     this.add(resetButton);
+    JButton tickButton = new JButton("Tick");
+    tickButton.addActionListener(new TickListener(theGame));
+    this.add(tickButton);
   }
 
   public class SpeedListener implements ActionListener {
@@ -31,9 +34,11 @@ public class GameOfLifeMenu extends JMenuBar {
 
     public void actionPerformed(ActionEvent e) {
       JButton speedButton = (JButton) e.getSource();
+      theGame.stop();
       int newSpeed = getBoundedInput("Tick delay in ms", 0, 10000, 100);
       theGame.setSleepTime(newSpeed);
       speedButton.setText(newSpeed + " ms delay");
+      theGame.start();
     }
 
     /**
@@ -93,6 +98,18 @@ public class GameOfLifeMenu extends JMenuBar {
 
     public void actionPerformed(ActionEvent e) {
       theGame.reset();
+    }
+  }
+
+  public class TickListener implements ActionListener {
+    GameOfLife theGame;
+
+    public TickListener(GameOfLife theGame) {
+      this.theGame = theGame;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+      theGame.tick();
     }
   }
 }
