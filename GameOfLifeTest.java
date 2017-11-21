@@ -1,7 +1,7 @@
 import javax.swing.JFrame;
 
 public class GameOfLifeTest extends JFrame {
-	public GameOfLifeTest(GameOfLifeDisplay theGame,
+	public GameOfLifeTest(GameOfLife theGame,
 												GameOfLifeMenu theMenu) {
 		super("Conway's Game of Life");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -14,7 +14,7 @@ public class GameOfLifeTest extends JFrame {
 	}
 
   public static void main(String[] args) {
-		GameOfLifeDisplay theGame = new GameOfLifeDisplay(10, 20);
+		GameOfLife theGame = new GameOfLife(10, 20);
 		GameOfLifeMenu theMenu = new GameOfLifeMenu(theGame);
 		GameOfLifeTest warghbl = new GameOfLifeTest(theGame, theMenu);
 		theGame.run();
