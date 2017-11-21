@@ -30,6 +30,10 @@ public class GameOfLife extends JPanel {
     this.paused = true;
   }
 
+  /**
+   * Runs the simulation. Sleeps while paused. While not paused, alternates
+   * between sleeping and advancing the board state.
+   */
   public void run() {
     while (running) {
       while (paused) {
@@ -40,11 +44,20 @@ public class GameOfLife extends JPanel {
     }
   }
 
+  /**
+   * Update the backing array, then redraw the cells to reflect births
+   * and deaths.
+   */
   public void tick() {
     theBoard.tick();
     repaint();
   }
 
+  /**
+   * Sleeps the program for the provided perior (in ms).
+   *
+   * @param sleepTime how long to sleep
+   */
   public void wait(int sleepTime) {
     try {
       Thread.sleep(sleepTime);
@@ -53,6 +66,12 @@ public class GameOfLife extends JPanel {
     }
   }
 
+  /**
+   * Iterates over the board, drawing black squares for live cells and white
+   * squares for dead ones.
+   *
+   * @param g required by SwingS
+   */
   @Override
   public void paintComponent(Graphics g) {
 		for (int row = 0; row < height; row++)
@@ -62,10 +81,7 @@ public class GameOfLife extends JPanel {
 				} else {
 					g.setColor(this.getBackground());
 				}
-				g.fillRect(col * CELL_SIZE,
-                   row * CELL_SIZE,
-                   CELL_SIZE,
-                   CELL_SIZE);
+				g.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 			}
 	}
 
