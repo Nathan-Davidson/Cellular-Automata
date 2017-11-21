@@ -69,30 +69,66 @@ public class GameOfLife extends JPanel {
 			}
 	}
 
+  /**
+   * Returns the width of the array. Used to make sure the menu aligns with
+   * the board.
+   *
+   * @return the width of the board
+   */
   public int getWidthPixels() {
     return width * CELL_SIZE;
   }
 
+  /**
+   * Tells you if the game is paused or not.
+   *
+   * @return whether the array is paused
+   */
   public boolean paused() {
     return paused;
   }
 
+  /**
+   * Start the game.
+   */
   public void start() {
     paused = false;
   }
 
+  /**
+   * Stop the game.
+   */
   public void stop() {
     paused = true;
   }
 
+  /**
+   * Returns the sleep time.
+   * Yes, I acknowledge that these comments are kind of obvious, but the linter
+   * wants javadoc comments everywhere, and I think just making the members
+   * public is a bad design pattern (though maybe not in this case).
+   *
+   * @return the current sleep time
+   */
   public int getSleepTime() {
     return sleepTime;
   }
 
+  /**
+   * Sets the sleep time.
+   *
+   * @param sleepTime the new sleep time.
+   */
   public void setSleepTime(int sleepTime) {
     this.sleepTime = sleepTime;
   }
 
+  /**
+   * Resets the board.
+   * First, clear the backing array.
+   * Second, repaint the screen to reflect the new backing array.
+   * Third, pause the game.
+   */
   public void reset() {
     theBoard.reset();
     repaint();
@@ -106,6 +142,9 @@ public class GameOfLife extends JPanel {
       this.theBoard = theBoard;
     }
 
+    /**
+     * Flip the block where a click was made, then update the display.
+     */
     public void mouseClicked(MouseEvent e) {
       int row = e.getY() / CELL_SIZE;
       int col = e.getX() / CELL_SIZE;
