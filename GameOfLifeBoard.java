@@ -80,4 +80,12 @@ public class GameOfLifeBoard {
 	public boolean getCell(int row, int col) {
 		return currBoard[row][col];
 	}
+
+	public void reset() {
+		for (int row = 0; row < height; row++) {
+			for (int col = 0; col < width; col++) {
+				currBoard[row][col] = false;
+			}
+		}
+	}
 }

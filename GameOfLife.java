@@ -54,7 +54,7 @@ public class GameOfLife extends JPanel {
 
   public void run() {
     while (running) {
-      while(paused); //Busywaiting is fun
+      while(paused); //Busywaiting is fun!
       tick();
       wait(sleepTime);
     }
@@ -111,6 +111,11 @@ public class GameOfLife extends JPanel {
 
   public void setSleepTime(int sleepTime) {
     this.sleepTime = sleepTime;
+  }
+
+  public void reset() {
+    theBoard.reset();
+    updateCells();
   }
 
   public class GameOfLifeListener implements ActionListener {

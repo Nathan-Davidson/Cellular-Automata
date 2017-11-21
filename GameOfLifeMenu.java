@@ -11,12 +11,15 @@ public class GameOfLifeMenu extends JMenuBar {
   public GameOfLifeMenu(GameOfLife theGame) {
     this.theGame = theGame;
     this.setPreferredSize(new Dimension(theGame.getWidthPixels(), 30));
-    JButton speed = new JButton("0 ms delay");
-    speed.addActionListener(new SpeedListener(theGame));
-    this.add(speed);
+    JButton speedButton = new JButton("0 ms delay");
+    speedButton.addActionListener(new SpeedListener(theGame));
+    this.add(speedButton);
     JButton startButton = new JButton("Start");
     startButton.addActionListener(new PlayingListener(theGame));
     this.add(startButton);
+    JButton resetButton = new JButton("Reset");
+    resetButton.addActionListener(new ResetListener(theGame));
+    this.add(resetButton);
   }
 
   public class SpeedListener implements ActionListener {
@@ -78,6 +81,18 @@ public class GameOfLifeMenu extends JMenuBar {
         theGame.stop();
         startButton.setText("Start");
       }
+    }
+  }
+
+  public class ResetListener implements ActionListener {
+    GameOfLife theGame;
+
+    public ResetListener(GameOfLife theGame) {
+      this.theGame = theGame;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+      theGame.reset();
     }
   }
 }
