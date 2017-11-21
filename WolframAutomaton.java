@@ -54,6 +54,7 @@ public class WolframAutomaton extends JPanel {
 			this.cellSize = MAX_CELL_SIZE;
 		}
 		this.setPreferredSize(new Dimension(width * cellSize, height * cellSize));
+		this.setBackground(Color.WHITE);
 
 		this.board = new boolean[height][width];
 
@@ -135,7 +136,7 @@ public class WolframAutomaton extends JPanel {
 				if (board[row][col]) {
 					g.setColor(Color.BLACK);
 				} else {
-					g.setColor(this.getBackground());
+					g.setColor(Color.WHITE);
 				}
 				g.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
 			}
@@ -212,7 +213,7 @@ public class WolframAutomaton extends JPanel {
 		} else {
 			theAutomaton = new WolframAutomaton(false);
 		}
-		
+
 		JFrame theFrame =
 			new JFrame("Wolfram Celluar Automaton");
 

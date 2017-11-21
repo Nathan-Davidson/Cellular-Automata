@@ -70,7 +70,7 @@ public class GameOfLife extends JPanel {
    * Iterates over the board, drawing black squares for live cells and white
    * squares for dead ones.
    *
-   * @param g required by SwingS
+   * @param g required by Swing
    */
   @Override
   public void paintComponent(Graphics g) {
