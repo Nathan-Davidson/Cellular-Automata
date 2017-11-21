@@ -4,7 +4,7 @@ public class GameOfLifeBoard {
   private boolean[][] currBoard;
   private boolean[][] nextBoard;
 
-  public GameOfLifeBackend(int height, int width) {
+  public GameOfLifeBoard(int height, int width) {
 		this.height = height;
 		this.width = width;
     this.currBoard = new boolean[height][width];
@@ -17,7 +17,7 @@ public class GameOfLifeBoard {
 				int neighbors = getNumNeighbors(row, col);
 				if(currBoard[row][col] && (neighbors < 2 || neighbors > 3)) {
 						nextBoard[row][col] = false;
-				} else if(currBoard[row][col]&& neighbors == 3) {
+				} else if(!currBoard[row][col] && neighbors == 3) {
 						nextBoard[row][col] = true;
 				} else {
 					nextBoard[row][col] = currBoard[row][col];
@@ -75,5 +75,9 @@ public class GameOfLifeBoard {
 
 	public void flipCell(int row, int col) {
 		currBoard[row][col] = !currBoard[row][col];
+	}
+
+	public boolean getCell(int row, int col) {
+		return currBoard[row][col];
 	}
 }
