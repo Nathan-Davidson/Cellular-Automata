@@ -18,7 +18,7 @@ public class GameOfLifeMenu extends JMenuBar {
     startButton.addActionListener(new PlayingListener(theGame));
     this.add(startButton);
     JButton resetButton = new JButton("Reset");
-    resetButton.addActionListener(new ResetListener(theGame));
+    resetButton.addActionListener(new ResetListener(theGame, startButton));
     this.add(resetButton);
     JButton tickButton = new JButton("Tick");
     tickButton.addActionListener(new TickListener(theGame));
@@ -91,13 +91,16 @@ public class GameOfLifeMenu extends JMenuBar {
 
   public class ResetListener implements ActionListener {
     GameOfLife theGame;
+    JButton startButton;
 
-    public ResetListener(GameOfLife theGame) {
+    public ResetListener(GameOfLife theGame, JButton startButton) {
       this.theGame = theGame;
+      this.startButton = startButton;
     }
 
     public void actionPerformed(ActionEvent e) {
       theGame.reset();
+      startButton.setText("Start");
     }
   }
 

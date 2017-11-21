@@ -32,8 +32,9 @@ public class GameOfLife extends JPanel {
 
   public void run() {
     while (running) {
-      while(paused) System.out.println("PAUSED"); //Busywaiting is fun!
-      System.out.println("CONWAY");
+      while (paused) {
+        wait(100);
+      }
       tick();
       wait(sleepTime);
     }
@@ -95,6 +96,7 @@ public class GameOfLife extends JPanel {
   public void reset() {
     theBoard.reset();
     repaint();
+    paused = true;
   }
 
   public class GameOfLifeListener implements MouseListener {
