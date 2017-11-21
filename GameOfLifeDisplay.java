@@ -16,7 +16,7 @@ public class GameOfLifeDisplay extends JFrame {
   public static void main(String[] args) {
 		GameOfLife theGame = new GameOfLife(40, 80);
 		GameOfLifeMenu theMenu = new GameOfLifeMenu(theGame);
-		GameOfLifeDisplay warghbl = new GameOfLifeDisplay(theGame, theMenu);
+		GameOfLifeDisplay theDisplay = new GameOfLifeDisplay(theGame, theMenu);
 		theGame.run();
   }
 }
