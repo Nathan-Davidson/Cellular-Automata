@@ -21,7 +21,7 @@ public class GameOfLifeMenu extends JMenuBar {
   public GameOfLifeMenu(GameOfLife theGame) {
     this.theGame = theGame;
     this.setPreferredSize(new Dimension(theGame.getWidthPixels(), 30));
-    JButton speedButton = new JButton("0 ms delay"); //Default delay
+    JButton speedButton = new JButton("20 ms delay"); //Default delay
     speedButton.addActionListener(new SpeedListener(theGame));
     this.add(speedButton);
     JButton startButton = new JButton("Start");
@@ -51,7 +51,7 @@ public class GameOfLifeMenu extends JMenuBar {
     public void actionPerformed(ActionEvent e) {
       JButton speedButton = (JButton) e.getSource();
       theGame.stop();
-      int newSpeed = getBoundedInput("Tick delay in ms", 0, 10000, 100);
+      int newSpeed = getBoundedInput("Tick delay in ms", 20, 10000, 20);
       theGame.setSleepTime(newSpeed);
       speedButton.setText(newSpeed + " ms delay");
       theGame.start();

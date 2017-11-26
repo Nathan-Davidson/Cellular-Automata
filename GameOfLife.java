@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 public class GameOfLife extends JPanel {
   private static int CELL_SIZE = 15;
+  private static int DEFAULT_SLEEP_TIME = 20;
 
   private int height;
   private int width;
@@ -25,7 +26,7 @@ public class GameOfLife extends JPanel {
                                         height * CELL_SIZE));
     this.theBoard = new GameOfLifeBoard(height, width);
     this.addMouseListener(new GameOfLifeListener(theBoard));
-    this.sleepTime = 0;
+    this.sleepTime = DEFAULT_SLEEP_TIME;
     this.running = true;
     this.paused = true;
   }

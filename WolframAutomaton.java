@@ -21,7 +21,7 @@ public class WolframAutomaton extends JPanel {
 	private int cellSize;
 	private boolean[][] board;
 	private int rule;
-	private int waitSecs;
+	private int waitMSecs;
 
 	public WolframAutomaton(boolean randomStart) {
 		//The rules governing a Wolfram Cellular Automaton are given my an
@@ -74,7 +74,8 @@ public class WolframAutomaton extends JPanel {
 		//So is the default. The default is 0 mostly because that makes
 		//behavior checking easier because you don't have to wait for the display
 		//to update.
-		this.waitSecs = getBoundedInput("Wait Time (ms)", 0, 10000, 0);
+		//16 ms is default update delay, keeping min above that.
+		this.waitMSecs = getBoundedInput("Wait Time (ms)", 20, 10000, 20);
 	}
 
 	/**
@@ -115,7 +116,7 @@ public class WolframAutomaton extends JPanel {
 			repaint();
 
 			try {
-				Thread.sleep(waitSecs);
+				Thread.sleep(waitMSecs);
 			} catch (InterruptedException ie) {
 				ie.printStackTrace();
 			}
@@ -220,9 +221,9 @@ public class WolframAutomaton extends JPanel {
 		theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		theFrame.add(theAutomaton);
 		theFrame.pack();
-		theFrame.setVisible(true);
-		theFrame.setLocationRelativeTo(null);
 		theFrame.setResizable(false);
+		theFrame.setLocationRelativeTo(null);
+		theFrame.setVisible(true);
 		theAutomaton.run();
 	}
 }
