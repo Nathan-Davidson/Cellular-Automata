@@ -10,4 +10,3 @@ GameOfLife.java -- allows users to run simulations of Conway's Game of Life.
 
 ## To Do
 1. Allow reseting for WolframAutomaton.java
-2. Fix periodic display glitch in WolframAutomaton.java
